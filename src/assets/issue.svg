@@ -1,0 +1,6 @@
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" data-v-bf5f2b94="" class="mr-1 text-textMedium" style="width: 20px; height: 20px; fill: currentcolor;" width="20"  height="20" ><defs><symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" id="story">
+        <g transform="translate(1 1)" fill="none" fill-rule="evenodd">
+            <rect fill="#63BA3C" width="14" height="14" rx="2"></rect>
+            <path d="M9 3H5a1 1 0 00-1 1v6.5a.5.5 0 00.5.5.49.49 0 00.41-.231l.004.001L6.84 8.54a.2.2 0 01.32 0l1.926 2.23.004-.001A.49.49 0 009.5 11a.5.5 0 00.5-.5V4a1 1 0 00-1-1" fill="#FFF"></path>
+        </g>
+    </symbol></defs><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#story" fill="#5E6C84"></use></svg>
