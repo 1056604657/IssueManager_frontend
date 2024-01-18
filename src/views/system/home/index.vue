@@ -92,7 +92,7 @@ export default defineComponent({
         {
           num1: "",
           num3: "已解决issue",
-          num4: "iconfont icon-ditu",
+          num4: "iconfont icon-dict",
           color1: "#6690F9",
           color2: "--next-color-success-lighter",
           color3: "--el-color-success",
@@ -100,7 +100,7 @@ export default defineComponent({
         {
           num1: "",
           num3: "待处理issue",
-          num4: "iconfont icon-zaosheng",
+          num4: "iconfont icon-caozuorizhi",
           color1: "#6690F9",
           color2: "--next-color-warning-lighter",
           color3: "--el-color-warning",
@@ -483,7 +483,7 @@ export default defineComponent({
             state.homeOne[0].num1 = data.issue_count;
             state.homeOne[1].num1 = data.resolve_count;
             state.homeOne[2].num1 = data.unpending_count;
-            state.homeOne[3].num1 = data._count;
+            state.homeOne[3].num1 = data.pending_count;
             state.daily_count = data.daily_count;
             state.unresolved_project_count = data.unresolved_project_count;
             setTimeout(() => {
@@ -552,6 +552,9 @@ $homeNavLengh: 8;
     }
   }
   .home-card-one {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-top: 15px;
     @for $i from 0 through 3 {
       .home-one-animation#{$i} {
         opacity: 0;
@@ -561,6 +564,10 @@ $homeNavLengh: 8;
         animation-delay: calc($i/10) + s;
       }
     }
+  }
+  .home-card-two {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
   }
   .home-card-two,
   .home-card-three {
