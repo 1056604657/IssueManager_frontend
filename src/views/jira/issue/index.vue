@@ -72,9 +72,21 @@
                           <div class="question-label">状态:</div>
                           <div
                             class="question-value status-pending"
-                            v-if="curIssueDetail.status == 1"
+                            v-if="
+                              curIssueDetail.status == 1 &&
+                              !curIssueDetail.pending_datetime
+                            "
                           >
                             待办
+                          </div>
+                          <div
+                            class="question-value status-handle"
+                            v-if="
+                              curIssueDetail.status == 1 &&
+                              curIssueDetail.pending_datetime
+                            "
+                          >
+                            处理中
                           </div>
                           <div
                             class="question-value status-finish"
@@ -249,6 +261,8 @@
         v-model="addIssueDrawer"
         direction="rtl"
         size="600px"
+        :close-on-click-modal="false"
+        :close-on-press-escape="false"
         ><addIssue @success="successCallback" @close="addIssueDrawer = false"
       /></el-drawer>
       <el-drawer
@@ -257,6 +271,8 @@
         v-model="editIssueDrawer"
         direction="rtl"
         size="600px"
+        :close-on-click-modal="false"
+        :close-on-press-escape="false"
         ><editIssue
           :issueId="curIssueId"
           @success="successCallback"
@@ -404,7 +420,7 @@ let openEditDrawer = (id) => {
 let curIssueId = ref(null)
 let curIssueDetail = ref(null)
 let popoverVisible = ref(null)
-const getIssueList = () => {
+const getIssueList = (setDefault = true) => {
   let params = {
     project_id: projectId
   }
@@ -414,8 +430,11 @@ const getIssueList = () => {
   api.getIssueList(params).then(res => {
     issueList.value = res.data
     if (!curIssueId.value && issueList.value.length) {
-      curIssueId.value = issueList.value[0].id
-      getIssueDetail()
+      if (setDefault) {
+        curIssueId.value = issueList.value[0].id
+        getIssueDetail()
+      }
+
     }
   })
 }
@@ -503,9 +522,8 @@ const handleSave = async (formEl) => {
         actual_hours: resolveForm.value.actual_hours
       }).then(res => {
         resolveIssueDialogVisiable.value = false
-        curIssueId.value = null
-        curIssueDetail.value = null
-        getIssueList()
+        getIssueList(false)
+        getIssueDetail()
         successMessage('保存成功');
       })
     }
@@ -548,8 +566,10 @@ const handleConfirmSave = () => {
     id: curIssueDetail.value.id,
     pending: confirmForm.value.pending,
     expected_hours: confirmForm.value.expected_hours
+  }).then(res => {
+    updateData()
   })
-  updateData()
+
   confirmIssueDialogVisible.value = false
 }
 const handleConfirmCancel = () => {
@@ -708,6 +728,15 @@ function updateData () {
   background-color: #14892c;
   border-color: #14892c;
   color: #fff;
+  font-size: 10px;
+  line-height: 16px;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.status-handle {
+  background-color: #409eff;
+  border-color: #409eff;
+  color: #ffffff;
   font-size: 10px;
   line-height: 16px;
   padding: 2px 6px;
