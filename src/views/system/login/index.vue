@@ -3,10 +3,6 @@
 		<div class="login-left">
 			<div class="login-left-logo">
 				<img :src="logoMini" />
-				<div class="login-left-logo-text">
-					<span>{{ getSystemConfig['login.site_title'] || getThemeConfig.globalViceTitle }}</span>
-					<span class="login-left-logo-text-msg">{{ getSystemConfig['login.site_name'] || getThemeConfig.globalViceTitleMsg }}</span>
-				</div>
 			</div>
 			<div class="login-left-img">
 				<img :src="loginMain" />
@@ -18,7 +14,7 @@
 				<span class="login-right-warp-one"></span>
 				<span class="login-right-warp-two"></span>
 				<div class="login-right-warp-mian">
-					<div class="login-right-warp-main-title">{{ getSystemConfig['login.site_title'] || getThemeConfig.globalTitle }} 欢迎您！</div>
+					<div class="login-right-warp-main-title">BMEIM 欢迎您！</div>
 					<div class="login-right-warp-main-form">
 						<div v-if="!state.isScan">
 							<el-tabs v-model="state.tabsActiveName">
@@ -36,7 +32,6 @@
 			</div>
 		</div>
 
-
 	</div>
 </template>
 
@@ -45,7 +40,7 @@ import { defineAsyncComponent, onMounted, reactive, computed } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useThemeConfig } from '/@/stores/themeConfig';
 import { NextLoading } from '/@/utils/loading';
-import logoMini from '/@/assets/logo-mini.svg';
+import logoMini from '/@/assets/logo-mini.png';
 import loginMain from '/@/assets/login-main.svg';
 import loginBg from '/@/assets/login-bg.svg';
 import { SystemConfigStore } from '/@/stores/systemConfig';
@@ -101,8 +96,7 @@ onMounted(() => {
 			animation: logoAnimation 0.3s ease;
 
 			img {
-				width: 52px;
-				height: 52px;
+				
 			}
 
 			.login-left-logo-text {
