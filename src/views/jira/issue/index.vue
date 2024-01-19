@@ -182,6 +182,14 @@
                       <div class="divider-text">用户</div>
                     </div>
                     <div class="date-item">
+                        <div class="label">指派给:</div>
+                        <div class="value">
+                        <el-avatar :size="20" :src="avatarImg" />{{
+                          curIssueDetail.assigned_name
+                        }}
+                        </div>
+										</div>
+                    <div class="date-item">
                       <div class="label">经办人:</div>
                       <div class="value">
                         <el-avatar :size="20" :src="avatarImg" />{{
