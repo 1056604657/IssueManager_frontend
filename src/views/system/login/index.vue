@@ -36,18 +36,7 @@
 			</div>
 		</div>
 
-		<div class="login-authorization">
-			<p>Copyright © {{ getSystemConfig['login.copyright'] || '2021-2024 django-vue-admin.com' }} 版权所有</p>
-			<p class="la-other">
-				<a href="https://beian.miit.gov.cn" target="_blank">{{ getSystemConfig['login.keep_record'] || '晋ICP备18005113号-3' }}</a>
-				|
-				<a :href="getSystemConfig['login.help_url'] ? getSystemConfig['login.help_url'] : 'https://django-vue-admin.com'" target="_blank">帮助</a>
-				|
-				<a :href="getSystemConfig['login.privacy_url'] ? getBaseURL(getSystemConfig['login.privacy_url']) : '#'">隐私</a>
-				|
-				<a :href="getSystemConfig['login.clause_url'] ? getBaseURL(getSystemConfig['login.clause_url']) : '#'">条款</a>
-			</p>
-		</div>
+
 	</div>
 </template>
 
