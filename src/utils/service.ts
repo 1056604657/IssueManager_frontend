@@ -72,7 +72,7 @@ function createService() {
 					case 400:
 						// Local.clear();
 						// Session.clear();
-						errorCreate(`${dataAxios.msg}: ${response.config.url}`);
+						errorCreate(`${dataAxios.msg}`);
 						// window.location.reload();
 						break;
 					case 401:
