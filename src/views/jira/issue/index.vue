@@ -44,8 +44,8 @@
             <div class="issue-sub">{{ issue.name }}</div>
           </div>
         </div>
-        <div style="width: 100%" v-if="curIssueDetail">
-          <el-row>
+        <div style="width: 100%; height: 100%" v-if="curIssueDetail">
+          <el-row style="height: 100%">
             <el-col :span="24">
               <div class="issue-box issue-detail">
                 <el-breadcrumb separator="/">
@@ -584,6 +584,8 @@ function updateData () {
 .issue-container {
   width: 100%;
   height: 100%;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
   background-color: #fff;
 }

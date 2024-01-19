@@ -92,6 +92,7 @@ export const createCrudOptions = function ({ crudExpose, context }: CreateCrudOp
             component: {
               placeholder: '请输入项目名',
             },
+            rules: [{ required: true, message: "请输入项目名" }]
           },
         },
         key: {
@@ -104,10 +105,14 @@ export const createCrudOptions = function ({ crudExpose, context }: CreateCrudOp
             minWidth: 200,
           },
           form: {
+            rules: [{ required: true, message: "请输入Key" }],
             disabled: false,
             component: {
               placeholder: '请输入Key',
             },
+            helper: {
+              text: "建议英文大写缩写"
+            }
           },
         },
         remark: {
@@ -162,6 +167,9 @@ export const createCrudOptions = function ({ crudExpose, context }: CreateCrudOp
               });
             },
           }),
+          form: {
+            rules: [{ required: true, message: "请选择负责人" }],
+          }
         },
       },
     },
