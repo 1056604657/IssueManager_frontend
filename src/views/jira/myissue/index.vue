@@ -39,7 +39,7 @@
               @click="clickIssueHandle(issue)"
             >
               <div class="issue-index">
-                <img :src="issueIcon" class="issue-icon" />{{
+                <img :src="issueIcon" class="issue-icon" />【P{{issue.priority}}】{{
                   issue.signal_number
                 }}
               </div>
@@ -51,7 +51,7 @@
               <el-col :span="24">
                 <div class="issue-box issue-detail">
                   <el-breadcrumb separator="/">
-                    <el-breadcrumb-item>上海</el-breadcrumb-item>
+                    <el-breadcrumb-item>{{curIssueDetail.project_name}}</el-breadcrumb-item>
                     <el-breadcrumb-item>{{
                       curIssueDetail.signal_number
                     }}</el-breadcrumb-item>
