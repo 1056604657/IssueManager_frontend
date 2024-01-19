@@ -32,6 +32,9 @@
         <div class="issue-box issue-left" style="width: 240px">
           <div
             class="issue-item"
+            :class="{
+						  active:curIssueDetail&&curIssueDetail.id==issue.id
+					  }" 
             v-for="(issue, index) in issueList"
             :key="index"
             @click="clickIssueHandle(issue)"
@@ -636,10 +639,15 @@ function updateData () {
   height: 100%;
   overflow: auto;
   .issue-item {
-    color: rgb(0, 82, 204);
-    border-bottom: 1px solid rgb(193, 199, 208);
+    color: #3b73af;
+		border-bottom: 1px solid #ccc;
     line-height: 24px;
     cursor: pointer;
+    &:hover,&.active{
+			.issue-index,.issue-sub{
+				text-decoration: underline;
+			}
+		}
     .issue-index {
       display: flex;
       align-items: center;
