@@ -1,58 +1,66 @@
-import { request,downloadFile } from '/@/utils/service';
+import { request, downloadFile } from '/@/utils/service';
 import { PageQuery, AddReq, DelReq, EditReq, InfoReq } from '@fast-crud/fast-crud';
 
 export const apiPrefix = '/api/system/user/';
 
 export function GetDept(query: PageQuery) {
-    return request({
-        url: "/api/system/dept/dept_lazy_tree/",
-        method: 'get',
-        params: query,
-    });
+  return request({
+    url: "/api/system/dept/dept_lazy_tree/",
+    method: 'get',
+    params: query,
+  });
 }
 
 export function GetList(query: PageQuery) {
-    return request({
-        url: apiPrefix,
-        method: 'get',
-        params: query,
-    });
+  return request({
+    url: apiPrefix,
+    method: 'get',
+    params: query,
+  });
 }
 export function GetObj(id: InfoReq) {
-    return request({
-        url: apiPrefix + id,
-        method: 'get',
-    });
+  return request({
+    url: apiPrefix + id,
+    method: 'get',
+  });
 }
 
 export function AddObj(obj: AddReq) {
-    return request({
-        url: apiPrefix,
-        method: 'post',
-        data: obj,
-    });
+  return request({
+    url: apiPrefix,
+    method: 'post',
+    data: obj,
+  });
 }
 
 export function UpdateObj(obj: EditReq) {
-    return request({
-        url: apiPrefix + obj.id + '/',
-        method: 'put',
-        data: obj,
-    });
+  return request({
+    url: apiPrefix + obj.id + '/',
+    method: 'put',
+    data: obj,
+  });
 }
 
 export function DelObj(id: DelReq) {
-    return request({
-        url: apiPrefix + id + '/',
-        method: 'delete',
-        data: { id },
-    });
+  return request({
+    url: apiPrefix + id + '/',
+    method: 'delete',
+    data: { id },
+  });
 }
 
-export function exportData(params:any){
-    return downloadFile({
-        url: apiPrefix + 'export_data/',
-        params: params,
-        method: 'get'
-    })
+export function exportData(params: any) {
+  return downloadFile({
+    url: apiPrefix + 'export_data/',
+    params: params,
+    method: 'get'
+  })
+}
+
+export function resetPwd(id: number, data: { [key: string]: string }) {
+  return request({
+    url: `/api/system/user/${id}/reset_password/`,
+    method: 'put',
+    data,
+  });
 }
