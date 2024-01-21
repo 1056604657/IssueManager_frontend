@@ -156,7 +156,7 @@ export default defineComponent({
         ],
         series: [
           {
-            name: "新增issue",
+            name: "新增数量",
             type: "line",
             symbolSize: 6,
             symbol: "circle",
@@ -172,7 +172,7 @@ export default defineComponent({
             },
           },
           {
-            name: "解决issue",
+            name: "解决数量",
             type: "line",
             symbolSize: 6,
             symbol: "circle",
