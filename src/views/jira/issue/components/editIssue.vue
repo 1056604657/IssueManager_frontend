@@ -1,47 +1,77 @@
 <template>
-	<div style="padding: 20px">
-		<el-form ref="formRef" :model="form" :rules="rules" label-width="80px">
-			<el-form-item label="项目" prop="project_id">
-				<el-select v-model="form.project_id" placeholder="请选择项目" disabled>
-					<el-option :label="item.label" :value="item.value" :key="index" v-for="(item, index) in projects"></el-option>
-				</el-select>
-			</el-form-item>
-			<el-form-item label="问题类型" prop="type">
-				<el-select v-model="form.type" clearable>
-					<el-option v-for="item in typeOptions" :key="item.value" :label="item.label" :value="item.value" />
-				</el-select>
-			</el-form-item>
-			<el-form-item label="主题" prop="name">
-				<el-input v-model="form.name"></el-input>
-			</el-form-item>
-			<el-form-item label="优先级" prop="priority">
-				<el-select v-model="form.priority" clearable>
-					<el-option v-for="item in priorityOptions" :key="item.value" :label="item.label" :value="item.value" />
-				</el-select>
-			</el-form-item>
-			<el-form-item label="到期日" prop="deadline">
-				<el-date-picker v-model="form.deadline" disabled type="datetime" format="YYYY-MM-DD hh:mm:ss" value-format="YYYY-MM-DD hh:mm:ss" />
-			</el-form-item>
+  <div style="padding: 20px">
+    <el-form ref="formRef" :model="form" :rules="rules" label-width="80px">
+      <el-form-item label="项目" prop="project_id">
+        <el-select v-model="form.project_id" placeholder="请选择项目" disabled>
+          <el-option
+            :label="item.label"
+            :value="item.value"
+            :key="index"
+            v-for="(item, index) in projects"
+          ></el-option>
+        </el-select>
+      </el-form-item>
+      <el-form-item label="问题类型" prop="type">
+        <el-select v-model="form.type" clearable>
+          <el-option
+            v-for="item in typeOptions"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="主题" prop="name">
+        <el-input v-model="form.name"></el-input>
+      </el-form-item>
+      <el-form-item label="优先级" prop="priority">
+        <el-select v-model="form.priority" clearable>
+          <el-option
+            v-for="item in priorityOptions"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="到期日" prop="deadline">
+        <el-date-picker
+          v-model="form.deadline"
+          type="datetime"
+          format="YYYY-MM-DD hh:mm:ss"
+          value-format="YYYY-MM-DD hh:mm:ss"
+        />
+      </el-form-item>
 
-			<el-form-item label="描述" prop="description">
-				<Editor mode="simple" v-model:getHtml="form.description" />
-			</el-form-item>
-			<el-form-item label="来源" prop="source">
-				<el-select v-model="form.source" clearable>
-					<el-option v-for="item in sourceOptions" :key="item.value" :label="item.label" :value="item.value" />
-				</el-select>
-			</el-form-item>
-			<el-form-item label="指派" prop="assigned_id">
-				<el-select v-model="form.assigned_id" clearable>
-					<el-option v-for="item in assignedOptions" :key="item.value" :label="item.label" :value="item.value" />
-				</el-select>
-			</el-form-item>
-			<el-form-item>
-				<el-button type="primary" @click="onSubmit(formRef)">保存</el-button>
-				<el-button @click="onCancel">取消</el-button>
-			</el-form-item>
-		</el-form>
-	</div>
+      <el-form-item label="描述" prop="description">
+        <Editor mode="simple" v-model:getHtml="form.description" />
+      </el-form-item>
+      <el-form-item label="来源" prop="source">
+        <el-select v-model="form.source" clearable>
+          <el-option
+            v-for="item in sourceOptions"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="指派" prop="assigned_id">
+        <el-select v-model="form.assigned_id" clearable>
+          <el-option
+            v-for="item in assignedOptions"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="onSubmit(formRef)">保存</el-button>
+        <el-button @click="onCancel">取消</el-button>
+      </el-form-item>
+    </el-form>
+  </div>
 </template>
 
 <script setup >
