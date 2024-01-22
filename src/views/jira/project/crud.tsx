@@ -77,7 +77,7 @@ export const createCrudOptions = function ({ crudExpose, context }: CreateCrudOp
           title: '项目',
           type: 'input',
           column: {
-            minWidth: 260,
+            minWidth: 100,
           },
           search: {
             show: true,
@@ -102,7 +102,7 @@ export const createCrudOptions = function ({ crudExpose, context }: CreateCrudOp
           },
           type: 'input',
           column: {
-            minWidth: 200,
+            minWidth: 60,
           },
           form: {
             rules: [{ required: true, message: "请输入Key" }],
@@ -122,7 +122,7 @@ export const createCrudOptions = function ({ crudExpose, context }: CreateCrudOp
           },
           type: 'textarea',
           column: {
-            minWidth: 200,
+            minWidth: 100,
           },
           form: {
             disabled: false,
@@ -138,7 +138,7 @@ export const createCrudOptions = function ({ crudExpose, context }: CreateCrudOp
           },
           type: 'input',
           column: {
-            minWidth: 200,
+            minWidth: 100,
           },
           form: {
             disabled: false,
@@ -147,8 +147,56 @@ export const createCrudOptions = function ({ crudExpose, context }: CreateCrudOp
             },
           },
         },
+        stage: {
+          title: '项目阶段',
+          column: {
+            minWidth: 100,
+          },
+          type: 'dict-select',
+          dict: dict({
+            getData() {
+              return request({ url: '/api/system/jira/get_jira_project_stages/' }).then((res: any) => {
+                const data = [];
+                for (const item of res.data) {
+                  const obj: any = {};
+                  obj.value = item.id;
+                  obj.label = item.name;
+                  data.push(obj);
+                }
+                return data;
+              });
+            },
+          }),
+          form: {
+            rules: [{ required: true, message: "请选择项目阶段" }],
+          }
+        },
+        status: {
+          title: '项目状态',
+          column: {
+            minWidth: 100,
+          },
+          type: 'dict-select',
+          dict: dict({
+            getData() {
+              return request({ url: '/api/system/jira/get_jira_project_status/' }).then((res: any) => {
+                const data = [];
+                for (const item of res.data) {
+                  const obj: any = {};
+                  obj.value = item.id;
+                  obj.label = item.name;
+                  data.push(obj);
+                }
+                return data;
+              });
+            },
+          }),
+          form: {
+            rules: [{ required: true, message: "请选择项目状态" }],
+          }
+        },
         manager: {
-          title: '负责人',
+          title: '项目经理',
           column: {
             minWidth: 100,
           },
@@ -168,7 +216,7 @@ export const createCrudOptions = function ({ crudExpose, context }: CreateCrudOp
             },
           }),
           form: {
-            rules: [{ required: true, message: "请选择负责人" }],
+            rules: [{ required: true, message: "请选择项目经理" }],
           }
         },
       },
