@@ -358,9 +358,16 @@
             <template #append>小时</template>
           </el-input>
         </el-form-item>
-        <el-form-item label="备注">
-          <Editor mode="simple" v-model:getHtml="resolveForm.comment" />
-        </el-form-item>
+      <el-form-item label="问题原因" prop="comment" >
+    <el-input v-model="resolveForm.comment" style="height: 100px;"></el-input>
+</el-form-item>
+
+<el-form-item label="解决方法" prop="solution" >
+    <el-input v-model="resolveForm.solution" style="height: 100px;"></el-input>
+</el-form-item>
+
+
+
       </el-form>
 
       <template #footer>
@@ -488,6 +495,7 @@ const resloveIssue = (issueId) => {
   resolveForm.value = {
     resolve_datetime: formatDate(new Date(), 'YYYY-mm-dd HH:MM:SS'),
     comment: '',
+    solution: '',
     actual_hours: 0,
   }
   console.log(resolveForm.value)
@@ -496,6 +504,7 @@ const resloveIssue = (issueId) => {
 let resolveForm = ref({
   resolve_datetime: '',
   comment: '',
+  solution: '',
   actual_hours: 0,
 })
 const resolveRules = ref({
@@ -510,12 +519,25 @@ const resolveRules = ref({
       required: true,
       message: '请输入'
     }
+  ],
+  comment: [
+    {
+      required: true,
+      message: '请输入问题原因'
+    }
+  ],
+  solution: [
+    {
+      required: true,
+      message: '请输入解决方法'
+    }
   ]
 });
 const handleCancel = () => {
   resolveForm.value = ref({
     resolve_datetime: '',
     comment: '',
+    solution: '',
     actual_hours: 0,
   })
   resolveIssueDialogVisiable.value = false
@@ -530,6 +552,7 @@ const handleSave = async (formEl) => {
         id: curIssueId.value,
         resolve_datetime: resolveForm.value.resolve_datetime,
         comment: resolveForm.value.comment,
+        solution: resolveForm.value.solution,
         actual_hours: resolveForm.value.actual_hours
       }).then(res => {
         resolveIssueDialogVisiable.value = false
