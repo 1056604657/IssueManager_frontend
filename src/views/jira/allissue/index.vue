@@ -3,26 +3,26 @@
       <div class="issue-container">
         <div class="issue-header">
           <div class="left-btns">
-            <div class="issue-status">{{ statusMap[status] }}</div>
-            <el-popover
-              placement="bottom"
-              :width="200"
-              trigger="focus"
-              popper-class="popper-status"
-              :visible="popoverVisible"
-            >
-              <template #reference>
-                <el-button
-                  style="margin-left: 10px"
-                  text
-                  @click="popoverVisible = true"
-                  >切换过滤器<el-icon><CaretBottom /></el-icon
-                ></el-button>
-              </template>
-              <div class="status-item" @click="changeStatus(0)">All issues</div>
-              <div class="status-item" @click="changeStatus(1)">Open issues</div>
-              <div class="status-item" @click="changeStatus(2)">Done issues</div>
-            </el-popover>
+            <el-form :inline="true" :model="formSearch" class="demo-form-inline">
+              <el-form-item label="所属项目">
+                <el-select v-model="formSearch.project_id" clearable >
+                  <el-option v-for="project in projectOptions" :key="project.id" :label="project.name" :value="project.id"></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="issue名">
+                <el-input v-model="formSearch.name" clearable></el-input>
+              </el-form-item>
+              <el-form-item label="issue状态">
+                <el-select v-model="formSearch.status"  clearable>
+                  <el-option v-for="status in statusOptions" :key="status.value" :label="status.label" :value="status.value"></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="primary" @click="onSubmit">查询</el-button>
+                <el-button type="primary" @click="onReset">重置</el-button>
+                <el-button type="primary" @click="onExport">导出数据</el-button>
+              </el-form-item>
+            </el-form>
           </div>
           <div class="right-btns">
           </div>
@@ -383,6 +383,11 @@
   import priority3 from '/@/assets/priority3.svg';
   import priority4 from '/@/assets/priority4.svg';
   import priority5 from '/@/assets/priority5.svg';
+  let formSearch=ref({
+    name:'',
+    project_id:'',
+    status:''
+  })
   let statusMap = {
     0: 'All issues',
     1: 'Open issues',
@@ -421,18 +426,21 @@
   let curIssueDetail = ref(null)
   let popoverVisible = ref(null)
   const getIssueList = (setDefault = true) => {
-    let params={}
-    if (status.value) {
-      params['status'] = status.value
+    let query=JSON.parse(JSON.stringify(formSearch.value))
+    if(query.status==3){
+      query.status=''
+      query.out_date=true
     }
-    api.getMyIssue(params).then(res => {
+    if(!query.status){
+      delete query.status
+    }
+    api.getAllIssue(query).then(res => {
       issueList.value = res.data
       if (!curIssueId.value && issueList.value.length) {
         if (setDefault) {
           curIssueId.value = issueList.value[0].id
           getIssueDetail()
         }
-
       }
     })
   }
@@ -501,17 +509,17 @@
       }
     ],
     comment: [
-    {
+      {
       required: true,
       message: '请输入问题原因'
     }
     ],
     solution: [
-    {
-      required: true,
-      message: '请输入解决方法'
+      {
+        required: true,
+        message: '请输入解决方法'
     }
-    ]
+  ]
     });
   const handleCancel = () => {
     resolveForm.value = ref({
@@ -521,7 +529,7 @@
       actual_hours: 0,
     })
     resolveIssueDialogVisiable.value = false
-
+    
   }
   const formResolveRef = ref()
   const handleSave = async (formEl) => {
@@ -562,7 +570,7 @@
       }
     ]
   })
-
+  
   const confirmIssue = () => {
     confirmForm.value = {
       pending: formatDate(new Date(), 'YYYY-mm-dd HH:MM:SS'),
@@ -593,6 +601,51 @@
     getIssueList()
     getIssueDetail()
   }
+  let statusOptions=[
+    {
+      label:'All Issues',
+      value:0
+    },
+    {
+      label:'Open Issues',
+      value:1
+    },
+    {
+      label:'Done Issues',
+      value:2
+    },
+    {
+      label:'Timeout Issues',
+      value:3
+    }
+  ]
+  let projectOptions=ref([])
+  api.getProjectList().then(res=>{
+    projectOptions.value=res.data
+  })
+  const onSubmit=()=>{
+    getIssueList()
+  }
+  const onReset=()=>{
+    formSearch.value={
+      name:'',
+      project_id:'',
+      status:''
+    }
+  }
+  const onExport=()=>{
+    let query=JSON.parse(JSON.stringify(formSearch.value))
+    if(query.status==3){
+      query.status=''
+      query.out_date=true
+    }
+    if(!query.status){
+      delete query.status
+    }
+    query.export=true
+    api.exportAllIssue(query)
+
+  }
   </script>
   <style lang="scss" scoped>
   .issue-container {
@@ -611,6 +664,9 @@
     justify-content: space-between;
     .left-btns {
       display: flex;
+      .el-select{
+        width:200px;
+      }
     }
     .issue-status {
       font-size: 20px;

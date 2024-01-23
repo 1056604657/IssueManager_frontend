@@ -139,8 +139,8 @@
                       readOnly="true"
                       :getHtml="curIssueDetail.description"
                     />
-                    <template v-if="curIssueDetail&&curIssueDetail.comments.length">
-                    <div class="issue-sub-title">
+                    <template v-if="curIssueDetail&&curIssueDetail.question_reason">
+                      <div class="issue-sub-title">
                       <div class="divider-text">备注</div>
                     </div>
                     <div class="question-detail">
@@ -148,13 +148,13 @@
                         <el-col :span="24" class="question-item">
                           <div class="question-label">问题原因:</div>
                           <div class="question-value">
-                            {{ curIssueDetail.comments[0].body }}
+                            {{ curIssueDetail.question_reason }}
                           </div>
                         </el-col>
                         <el-col :span="24" class="question-item">
                           <div class="question-label">解决方法:</div>
                           <div class="question-value">
-                            {{ curIssueDetail.comments[0].solution }}
+                            {{ curIssueDetail.resolve_method}}
                           </div>
                         </el-col>
                       </el-row>
