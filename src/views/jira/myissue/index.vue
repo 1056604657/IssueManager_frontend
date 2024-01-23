@@ -138,6 +138,27 @@
                         readOnly="true"
                         :getHtml="curIssueDetail.description"
                       />
+                      <template v-if="curIssueDetail&&curIssueDetail.comments.length">
+                      <div class="issue-sub-title">
+                      <div class="divider-text">备注</div>
+                    </div>
+                    <div class="question-detail">
+                      <el-row :gutter="20">
+                        <el-col :span="24" class="question-item">
+                          <div class="question-label">问题原因:</div>
+                          <div class="question-value">
+                            {{ curIssueDetail.comments[0].body }}
+                          </div>
+                        </el-col>
+                        <el-col :span="24" class="question-item">
+                          <div class="question-label">解决方法:</div>
+                          <div class="question-value">
+                            {{ curIssueDetail.comments[0].solution }}
+                          </div>
+                        </el-col>
+                      </el-row>
+                    </div>
+                  </template>
                       <div class="issue-sub-title">
                         <div class="divider-text">操作</div>
                       </div>
@@ -325,12 +346,12 @@
             </el-input>
           </el-form-item>
           <el-form-item label="问题原因" prop="comment" >
-    <el-input v-model="resolveForm.comment" style="height: 100px;"></el-input>
-</el-form-item>
+        <el-input type="textarea" autosize v-model="resolveForm.comment" ></el-input>
+      </el-form-item>
 
-<el-form-item label="解决方法" prop="solution" >
-    <el-input v-model="resolveForm.solution" style="height: 100px;"></el-input>
-</el-form-item>
+      <el-form-item label="解决方法" prop="solution" >
+          <el-input type="textarea" autosize v-model="resolveForm.solution" ></el-input>
+      </el-form-item>
         </el-form>
 
         <template #footer>
