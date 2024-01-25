@@ -38,8 +38,8 @@
         <el-date-picker
           v-model="form.deadline"
           type="datetime"
-          format="YYYY-MM-DD hh:mm:ss"
-          value-format="YYYY-MM-DD hh:mm:ss"
+          format="YYYY-MM-DD HH:mm:ss"
+          value-format="YYYY-MM-DD HH:mm:ss"
         />
       </el-form-item>
 
