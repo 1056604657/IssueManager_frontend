@@ -254,7 +254,7 @@
                         <div class="value">
                           {{
                             curIssueDetail.expected_hours
-                              ? curIssueDetail.expected_hours + "工时"
+                              ? curIssueDetail.expected_hours + "分钟"
                               : "-"
                           }}
                         </div>
@@ -264,7 +264,7 @@
                         <div class="value">
                           {{
                             curIssueDetail.actual_hours
-                              ? curIssueDetail.actual_hours + "工时"
+                              ? curIssueDetail.actual_hours + "分钟"
                               : "-"
                           }}
                         </div>
@@ -342,7 +342,7 @@
               oninput="value=value.replace(/[^\d]/g,'')"
               type="number"
             >
-              <template #append>小时</template>
+              <template #append>分钟</template>
             </el-input>
           </el-form-item>
           <el-form-item label="问题原因" prop="comment" >
