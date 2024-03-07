@@ -240,6 +240,12 @@
                         </div>
                       </div>
                       <div class="date-item">
+                        <div class="label">确认时间:</div>
+                        <div class="value">
+                          {{ curIssueDetail.pending_datetime || "-" }}
+                        </div>
+                      </div>
+                      <div class="date-item">
                         <div class="label">解决时间:</div>
                         <div class="value">
                           {{ curIssueDetail.resolve_datetime || "-" }}
@@ -298,7 +304,7 @@
               v-model.number="confirmForm.expected_hours"
               type="number"
             >
-              <template #append>小时</template>
+              <template #append>分钟</template>
             </el-input>
           </el-form-item>
         </el-form>
