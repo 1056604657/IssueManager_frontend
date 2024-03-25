@@ -17,6 +17,20 @@
                   <el-option v-for="status in statusOptions" :key="status.value" :label="status.label" :value="status.value"></el-option>
                 </el-select>
               </el-form-item>
+
+              <el-form-item label="筛选时间">
+                <el-date-picker
+                  v-model="formSearch.dateRange"
+                  type="daterange"
+                  range-separator="至"
+                  start-placeholder="开始日期"
+                  end-placeholder="结束日期"
+                  value-format="YYYY-MM-DD" 
+                  @change="onDateRangeChange">
+              </el-date-picker>
+              </el-form-item>
+
+              
               <el-form-item>
                 <el-button type="primary" @click="onSubmit">查询</el-button>
                 <el-button type="primary" @click="onReset">重置</el-button>
@@ -392,7 +406,8 @@
   let formSearch=ref({
     name:'',
     project_id:'',
-    status:''
+    status:'',
+    dateRange:[]
   })
   let statusMap = {
     0: 'All issues',
@@ -432,24 +447,37 @@
   let curIssueDetail = ref(null)
   let popoverVisible = ref(null)
   const getIssueList = (setDefault = true) => {
-    let query=JSON.parse(JSON.stringify(formSearch.value))
-    if(query.status==3){
-      query.status=''
-      query.out_date=true
+    let query = JSON.parse(JSON.stringify(formSearch.value));
+    if(query.status == 3){
+      query.status = '';
+      query.out_date = true;
     }
     if(!query.status){
-      delete query.status
+      delete query.status;
     }
+
+    // 检查 dateRange 是否有值
+    if (formSearch.value.dateRange && formSearch.value.dateRange.length === 2) {
+      // 将开始日期和结束日期添加到查询对象中
+      query.start_date = formSearch.value.dateRange[0];
+      query.stop_date = formSearch.value.dateRange[1];
+    } else {
+      // 如果没有选择日期范围，则确保查询对象中不包含开始和结束日期
+      delete query.start_date;
+      delete query.stop_date;
+    }
+
     api.getAllIssue(query).then(res => {
-      issueList.value = res.data
+      issueList.value = res.data;
       if (!curIssueId.value && issueList.value.length) {
         if (setDefault) {
-          curIssueId.value = issueList.value[0].id
-          getIssueDetail()
+          curIssueId.value = issueList.value[0].id;
+          getIssueDetail();
         }
       }
-    })
-  }
+    });
+}
+
   getIssueList()
   function getIssueDetail () {
     if (!curIssueId.value) {
@@ -636,7 +664,8 @@
     formSearch.value={
       name:'',
       project_id:'',
-      status:''
+      status:'',
+      dateRange: []
     }
   }
   const onExport=()=>{
@@ -649,6 +678,15 @@
       delete query.status
     }
     query.export=true
+    if (formSearch.value.dateRange && formSearch.value.dateRange.length === 2) {
+      // 将开始日期和结束日期添加到查询对象中
+      query.start_date = formSearch.value.dateRange[0];
+      query.stop_date = formSearch.value.dateRange[1];
+    } else {
+      // 如果没有选择日期范围，则确保查询对象中不包含开始和结束日期
+      delete query.start_date;
+      delete query.stop_date;
+    }
     api.exportAllIssue(query)
 
   }
