@@ -1,5 +1,5 @@
 import { RouteRecordRaw } from 'vue-router';
-
+import index from '../views/jira/allissue/index.vue'; // 根据你的文件结构调整路径
 /**
  * 路由meta对象参数说明
  * meta: {
@@ -45,7 +45,23 @@ export const dynamicRoutes: Array<RouteRecordRaw> = [
 			isIframe: false,
 			icon: 'iconfont icon-gerenzhongxin',
 		},
-	}
+	},
+	{
+        path: '/allissue',
+        name: 'AllIssue',
+        component: index, // 确保已经导入
+        meta: {
+          title: '所有 Issue', // 这里设置页面标题
+          isLink: '',
+          isHide: false,
+          isKeepAlive: true,
+          isAffix: false,
+          isIframe: false,
+          icon: 'iconfont icon-issue',
+          roles: ['admin', 'common'], // 根据需要设置
+        },
+      },
+
 ];
 
 /**
@@ -97,3 +113,5 @@ export const staticRoutes: Array<RouteRecordRaw> = [
 		},
 	}
 ];
+
+  

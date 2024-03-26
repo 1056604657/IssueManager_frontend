@@ -11,11 +11,11 @@
         :key="k"
         :class="{ 'home-media home-media-lg': k > 1, 'home-media-sm': k === 1 }"
       >
-        <div class="home-card-item flex">
+        <div class="home-card-item flex" @click="gotoAllIssue">
           <div class="flex-margin flex w100" :class="` home-one-animation${k}`">
             <div class="flex-auto">
               <span class="font30">{{ v.num1 }}</span>
-              <div class="mt10">{{ v.num3 }}</div>
+              <div class="mt10" >{{ v.num3 }}</div>
             </div>
             <div
               class="home-card-item-icon flex"
@@ -62,6 +62,7 @@ import { storeToRefs } from "pinia";
 import { useThemeConfig } from "/@/stores/themeConfig";
 import { useTagsViewRoutes } from "/@/stores/tagsViewRoutes";
 import * as api from "./api";
+import { useRouter } from 'vue-router';
 let global: any = {
   homeChartOne: null,
   homeChartTwo: null,
@@ -610,11 +611,20 @@ export default defineComponent({
       }
     );
 
+
+
+    const router = useRouter();
+
+    // 定义跳转方法
+    const gotoAllIssue = () => {
+      router.push('/allissue');
+    };
     return {
       homeLineRef,
       homePieRef,
       homeBarRef,
       ...toRefs(state),
+      gotoAllIssue,
     };
   },
 });
@@ -637,6 +647,7 @@ $homeNavLengh: 8;
       background: var(--el-color-white);
       color: var(--el-text-color-primary);
       border: 1px solid var(--next-border-color-light);
+      cursor: pointer;
       &:hover {
         box-shadow: 0 2px 12px var(--next-color-dark-hover);
         transition: all ease 0.3s;
